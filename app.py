@@ -1,17 +1,17 @@
+%%writefile app.py
 import streamlit as st
 from transformers import BertTokenizerFast, BertForSequenceClassification
 import torch
-from pathlib import Path
 
-# === Path Model di dalam Repo ===
-MODEL_DIR = Path(__file__).parent / "model"
+# === Nama model di Hugging Face Hub ===
+# Ganti 'username' dengan username Hugging Face kamu, misalnya: "laisalkk/indoBERT-sentiment"
+MODEL_NAME = "username/indoBERT-sentiment"
 
-# === Load Tokenizer & Model (cache biar cepat) ===
+# === Load Tokenizer dan Model ===
 @st.cache_resource
 def load_model():
-    tokenizer = BertTokenizerFast.from_pretrained(MODEL_DIR)
-    model = BertForSequenceClassification.from_pretrained(MODEL_DIR)
-    model.eval()
+    tokenizer = BertTokenizerFast.from_pretrained(MODEL_NAME)
+    model = BertForSequenceClassification.from_pretrained(MODEL_NAME)
     return tokenizer, model
 
 tokenizer, model = load_model()
@@ -31,12 +31,14 @@ def predict_sentiment(text):
 st.set_page_config(page_title="Sentiment Analysis App", page_icon="🧠", layout="centered")
 
 st.title("🧠 Analisis Sentimen IndoBERT")
-st.markdown("""
-Uji kemampuan model **IndoBERT** dalam menganalisis sentimen teks berbahasa Indonesia 🇮🇩  
-Masukkan kalimat atau ulasan, lalu lihat apakah hasilnya positif atau negatif!
-""")
+st.markdown(
+    """
+    Uji kemampuan model **IndoBERT** dalam menganalisis sentimen teks berbahasa Indonesia 🇮🇩  
+    Masukkan teks, lalu lihat apakah model menilai positif atau negatif!
+    """
+)
 
-user_input = st.text_area("📝 Masukkan teks:", "")
+user_input = st.text_area("🗣️ Masukkan kalimat atau ulasan di sini:", "")
 
 if st.button("🔍 Analisis Sentimen"):
     if user_input.strip():
@@ -48,4 +50,4 @@ if st.button("🔍 Analisis Sentimen"):
         st.warning("Masukkan teks terlebih dahulu ya!")
 
 st.markdown("---")
-st.caption("🚀 Ditenagai oleh IndoBERT - HuggingFace 🤗")
+st.caption("Ditenagai oleh IndoBERT - 🤗 Hugging Face & Streamlit 🚀")
