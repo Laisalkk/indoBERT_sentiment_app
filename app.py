@@ -5,7 +5,7 @@ import torch
 
 # === Nama model di Hugging Face Hub ===
 # Ganti 'username' dengan username Hugging Face kamu, misalnya: "laisalkk/indoBERT-sentiment"
-MODEL_NAME = "username/indoBERT-sentiment"
+MODEL_NAME = "laisalkk/indoBERT-sentiment"
 
 # === Load Tokenizer dan Model ===
 @st.cache_resource
@@ -51,3 +51,4 @@ if st.button("🔍 Analisis Sentimen"):
 
 st.markdown("---")
 st.caption("Ditenagai oleh IndoBERT - 🤗 Hugging Face & Streamlit 🚀")
+
